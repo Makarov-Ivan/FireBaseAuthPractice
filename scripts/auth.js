@@ -43,13 +43,15 @@ signUpForm.addEventListener("submit", (e) => {
   //sign up the user
   auth
     .createUserWithEmailAndPassword(email, password)
+    .then((cred) => {
+      return db.collection("users").doc(cred.user.uid).set({
+        bio: signUpForm["signup-bio"].value,
+      });
+    })
     .then(() => {
       signUpForm.reset();
       let modal = document.querySelector("#modal-signup");
       M.Modal.getInstance(modal).close();
-    })
-    .then(() => {
-      console.log("user signed up");
     })
     .catch((er) => {
       console.error("error", er);

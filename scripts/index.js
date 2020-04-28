@@ -1,4 +1,25 @@
 const guideList = document.querySelector(".guides");
+const loggedOutLinks = document.querySelectorAll(".logged-out");
+const loggedInLinks = document.querySelectorAll(".logged-in");
+//prevent links before fetching data from firebase auth
+for (link of loggedOutLinks) {
+  link.style.display = "none";
+}
+for (link of loggedInLinks) {
+  link.style.display = "none";
+}
+
+const setupUI = (user) => {
+  if (user) {
+    //toggle UI elements
+    loggedInLinks.forEach((item) => (item.style.display = "block"));
+    loggedOutLinks.forEach((item) => (item.style.display = "none"));
+  } else {
+    //toggle again
+    loggedInLinks.forEach((item) => (item.style.display = "none"));
+    loggedOutLinks.forEach((item) => (item.style.display = "block"));
+  }
+};
 
 //set up some gides
 const setupGuides = (data) => {

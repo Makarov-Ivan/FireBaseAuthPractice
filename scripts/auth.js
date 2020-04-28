@@ -2,12 +2,10 @@
 auth.onAuthStateChanged((user) => {
   if (user) {
     //get data
-    db.collection("guides")
-      .get()
-      .then((snapshot) => {
-        setupGuides(snapshot.docs);
-        setupUI(user);
-      });
+    db.collection("guides").onSnapshot((snapshot) => {
+      setupGuides(snapshot.docs);
+      setupUI(user);
+    });
   } else {
     setupGuides([]);
     setupUI();

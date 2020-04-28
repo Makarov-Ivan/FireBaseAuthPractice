@@ -2,20 +2,24 @@ const guideList = document.querySelector(".guides");
 
 //set up some gides
 const setupGuides = (data) => {
-  let html = "";
-  data.forEach((doc) => {
-    const guide = doc.data();
-    const li = `
-    <li>
-    <div class="collapsible-header grey lighten-4">${guide.title}</div>
-    <div class="collapsible-body white">
+  if (data.length) {
+    let html = "";
+    data.forEach((doc) => {
+      const guide = doc.data();
+      const li = `
+      <li>
+      <div class="collapsible-header grey lighten-4">${guide.title}</div>
+      <div class="collapsible-body white">
       <span>${guide.content}</span>
-    </div>
-    </li>
-    `;
-    html += li;
-  });
-  guideList.innerHTML = html;
+      </div>
+      </li>
+      `;
+      html += li;
+    });
+    guideList.innerHTML = html;
+  } else {
+    guideList.innerHTML = `<h5 class='center-align' >Login to view guides</h5>`;
+  }
 };
 
 {

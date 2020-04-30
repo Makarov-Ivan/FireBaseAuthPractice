@@ -8,13 +8,17 @@ adminForm.addEventListener("submit", (e) => {
     console.log(result);
   });
 });
+
 //listen for auth status changes
 auth.onAuthStateChanged((user) => {
   if (user) {
+    user.getIdTokenResult().then((IdTokenResult) => {
+      user.admin = IdTokenResult.claims.admin;
+      setupUI(user);
+    });
     //get data
     db.collection("guides").onSnapshot((snapshot) => {
       setupGuides(snapshot.docs);
-      setupUI(user);
     });
   } else {
     setupGuides([]);
